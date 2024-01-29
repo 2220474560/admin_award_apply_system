@@ -16,18 +16,14 @@
       </a-layout>
     </a-layout-content>
     <a-layout-footer class="footer">
-      <a-divider plain
-        ><span class="footer-font"
-          >Copyright © 2024 成都东软学院. 京ICP备10214630号</span
-        ></a-divider
-      >
+      <a-divider plain><span class="footer-font">Copyright © 2024 成都东软学院. 京ICP备10214630号</span></a-divider>
     </a-layout-footer>
   </a-layout>
 </template>
 
 <script lang="ts" setup>
 // 导入组件
-import HeaderMenu from '@/components/mains/main-page/HeaderMenu.vue'
+import HeaderMenu from '@/components/mains/main-page/HeaderMenu.vue';
 </script>
 
 <style scoped>
@@ -42,6 +38,7 @@ import HeaderMenu from '@/components/mains/main-page/HeaderMenu.vue'
 }
 
 .main-content {
+  background-image: url('../../assets/images/back9.jpeg');
   display: flex;
   margin-top: 64px;
   flex-direction: column;
@@ -67,6 +64,7 @@ import HeaderMenu from '@/components/mains/main-page/HeaderMenu.vue'
 }
 
 .footer {
+  background-image: url('../../assets/images/back9.jpeg');
   text-align: center;
   padding: 0 3%;
 }

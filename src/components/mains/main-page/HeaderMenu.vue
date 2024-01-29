@@ -14,26 +14,21 @@
     </a-col>
     <a-col :span="12" style="text-align: right">
       <a-tooltip title="退出登录">
-        <a-button
-          @click="handleExitClick"
-          shape="circle"
-          :icon="h(PoweroffOutlined)"
-          size="large"
-        ></a-button>
+        <a-button @click="handleExitClick" shape="circle" :icon="h(PoweroffOutlined)" size="large"></a-button>
       </a-tooltip>
     </a-col>
   </a-row>
 </template>
 
 <script setup lang="ts">
-import { h } from 'vue'
-import { PoweroffOutlined } from '@ant-design/icons-vue'
-import { message } from 'ant-design-vue'
-import router from '@/routers'
+import {h} from 'vue';
+import {PoweroffOutlined} from '@ant-design/icons-vue';
+import {message} from 'ant-design-vue';
+import router from '@/routers';
 
 function handleExitClick() {
-  message.success('退出系统成功,欢迎您下次登录!')
-  router.push('/LogIn')
+  message.success('退出系统成功,欢迎您下次登录!');
+  router.push('/LogIn');
 }
 </script>
 
