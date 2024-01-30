@@ -52,7 +52,8 @@
           <DownOutlined />
         </a-button>
       </a-dropdown>
-      <SearchOutlined style="font-size: 30px" class="" />
+      <!-- <SearchOutlined style="font-size: 30px" class="" /> -->
+      <a-button type="primary" shape="circle" :icon="h(SearchOutlined)" />
     </div>
     <div class="dropdown-right">
       <a-dropdown class="right">
@@ -91,6 +92,7 @@
 </template>
 
 <script setup lang="ts">
+import {h} from 'vue';
 import {UserOutlined, DownOutlined, SearchOutlined} from '@ant-design/icons-vue';
 import type {MenuProps} from 'ant-design-vue';
 const handleMenuClick: MenuProps['onClick'] = (e) => {
@@ -100,51 +102,61 @@ const columns = [
   {
     title: '年级',
     dataIndex: 'name',
+    align: 'center',
     key: 'name'
   },
   {
     title: '专业',
     dataIndex: 'age',
+    align: 'center',
     key: 'age'
   },
   {
     title: '班级',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 1'
   },
   {
     title: '学号',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 2'
   },
   {
     title: '姓名',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 3'
   },
   {
     title: '去年总分',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 4'
   },
   {
     title: '今年总分',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 4'
   },
   {
     title: '去年排名',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 4'
   },
   {
     title: '今年排名',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 4'
   },
   {
     title: '名次进步百分比',
     dataIndex: 'address',
+    align: 'center',
     key: 'address 4'
   }
 ];

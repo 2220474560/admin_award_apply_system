@@ -69,61 +69,73 @@ const columns = [
   {
     title: '年级',
     dataIndex: 'grade',
+    align: 'center',
     key: 'grade'
   },
   {
     title: '专业',
     dataIndex: 'major',
+    align: 'center',
     key: 'major'
   },
   {
     title: '班级',
     dataIndex: 'class',
+    align: 'center',
     key: 'class'
   },
   {
     title: '姓名',
     dataIndex: 'name',
+    align: 'center',
     key: 'name'
   },
   {
     title: '注册公司名称',
     dataIndex: 'companyname',
+    align: 'center',
     key: 'companyname'
   },
   {
     title: '实体/虚体',
     dataIndex: 'vp',
+    align: 'center',
     key: 'vp'
   },
   {
     title: '申报人排名',
     dataIndex: 'ranking',
+    align: 'center',
     key: 'ranking'
   },
   {
     title: '注册时间',
     dataIndex: 'signuptime',
+    align: 'center',
     key: 'signuptime'
   },
   {
     title: '公司规模',
     dataIndex: 'scale',
+    align: 'center',
     key: 'scale'
   },
   {
     title: '佐证材料',
     dataIndex: 'materials',
+    align: 'center',
     key: 'materials'
   },
   {
     title: '状态',
     dataIndex: 'state',
+    align: 'center',
     key: 'state'
   },
   {
     title: '操作',
     dataIndex: 'operate',
+    align: 'center',
     key: 'operate'
   }
 ];

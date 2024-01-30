@@ -21,35 +21,59 @@
       </a-button>
     </a-dropdown>
   </div>
-  <a-table :columns="columns" :data-source="filteredData" :pagination="false" class="responsive-table" bordered>
-    <template #bodyCell="{column, record}">
-      <template v-if="column.dataIndex === 'materials'">
-        <a>{{ record.materials }}</a>
+  <a-spin tip="正在加载，请稍候..." :spinning="spinning">
+    <a-table :columns="columns" :data-source="filteredData" :pagination="false" class="responsive-table" bordered>
+      <template #bodyCell="{column, record}">
+        <template v-if="column.dataIndex === 'url'">
+          <a-button type="link" @click="showUrl">点击查看</a-button>
+          <a-modal v-model:open="openUrl" title="佐证材料" :footer="null" centered>
+            <a>{{ record.url }}</a>
+          </a-modal>
+        </template>
+        <template v-if="column.dataIndex === 'state'">
+          <div v-for="tag in record.state" :key="tag" :style="{color: tag === '1' ? 'green' : tag === '2' ? 'red' : 'black'}">
+            {{ tag === '1' ? '已通过' : tag === '2' ? '未通过' : '未审核' }}
+          </div>
+        </template>
+        <template v-else-if="column.dataIndex === 'operate'">
+          <span>
+            <template v-for="action in record.state" :key="action">
+              <!-- 状态为0 —— 未审核 -->
+              <div v-if="action === '0'">
+                <!-- 通过 -->
+                <a-button ghost type="primary" style="border-color: green; border-radius: 25px; color: #fff; background-color: green"> 通 过 </a-button>
+                <!-- 未通过 -->
+                <a-button ghost type="primary" danger style="border-radius: 25px; margin-left: 3%"> 未 通 过 </a-button>
+              </div>
+              <!-- 状态为1 —— 已审核通过 -->
+              <div v-else-if="action === '1'">
+                <a-button type="text" style="color: green" @click="showCertificate">查看证书</a-button>
+              </div>
+              <!-- 状态为2 —— 已审核不通过 -->
+              <div v-else-if="action === '2'">
+                <a-button type="text" style="color: red" @click="showCertificate">查看驳回理由</a-button>
+              </div>
+              <a-modal v-model:open="openCertificate" title="查看详情" :ok-button-props="{disabled: true}" :cancel-button-props="{disabled: true}">
+                <p>balbala</p>
+              </a-modal>
+            </template>
+          </span>
+        </template>
       </template>
-      <template v-else-if="column.dataIndex === 'state'">
-        <a v-for="tag in record.state" :key="tag" :style="{color: tag === '已通过' ? 'green' : tag === '未通过' ? 'red' : 'black'}">{{ tag }}</a>
-      </template>
-      <template v-else-if="column.dataIndex === 'operate'">
-        <span>
-          <template v-for="action in record.operate" :key="action">
-            <a v-if="action === '查看证书' || action === '查看驳回理由'" :style="{color: action === '查看证书' ? 'green' : 'red'}">
-              {{ action }}
-            </a>
-            <a-tag v-else :color="action === '通过' ? 'green' : 'red'">
-              {{ action }}
-            </a-tag>
-          </template>
-        </span>
-      </template>
-    </template>
-  </a-table>
+    </a-table>
+  </a-spin>
 </template>
 
 <script setup lang="ts">
 import {ref} from 'vue';
 import {DownOutlined} from '@ant-design/icons-vue';
-import type {MenuProps} from 'ant-design-vue';
+import {message, type MenuProps} from 'ant-design-vue';
+import {LXRgetCompetition} from '@/service/main/match-star';
+
 const inputValue = ref<string>('');
+// 定义加载状态
+const spinning = ref<boolean>(true);
+
 type DataType = {
   grade: string;
   major: string;
@@ -57,113 +81,110 @@ type DataType = {
   name: string;
   cname: string;
   time: string;
-  materials: string;
+  url: string;
   state: string[];
   operate: string[];
 };
+
+/**
+ * @description 定义表头。
+ */
 const columns = [
   {
     title: '年级',
     dataIndex: 'grade',
+    align: 'center',
     key: 'grade'
   },
   {
     title: '专业',
     dataIndex: 'major',
+    align: 'center',
     key: 'major'
   },
   {
     title: '班级',
     dataIndex: 'class',
+    align: 'center',
     key: 'class'
   },
   {
     title: '姓名',
-    dataIndex: 'name',
+    dataIndex: 'stuname',
+    align: 'center',
     key: 'name'
   },
   {
     title: '竞赛名称',
-    dataIndex: 'cname',
-    key: 'cname'
+    dataIndex: 'entryname',
+    align: 'center',
+    key: 'entryname'
   },
   {
     title: '报名时间',
-    dataIndex: 'time',
-    key: 'time'
+    dataIndex: 'signuptime',
+    align: 'center',
+    key: 'signuptime'
   },
   {
     title: '佐证材料',
-    dataIndex: 'materials',
-    key: 'materials'
+    dataIndex: 'url',
+    align: 'center',
+    key: 'url'
   },
   {
     title: '状态',
     dataIndex: 'state',
+    align: 'center',
     key: 'state'
   },
   {
     title: '操作',
     dataIndex: 'operate',
+    align: 'center',
     key: 'operate'
   }
 ];
-const data = [
-  {
-    key: '1',
-    grade: '2023级',
-    major: '软件工程',
-    class: '1',
-    name: '李四',
-    cname: '蓝桥杯',
-    time: '2024/1/22',
-    materials: '点击查看',
-    state: ['未审批'],
-    operate: ['通过', '未通过']
-  },
-  {
-    key: '2',
-    grade: '2023级',
-    major: '软件工程',
-    class: '1',
-    name: '李四',
-    cname: '蓝桥杯',
-    time: '2024/1/22',
-    materials: '点击查看',
-    state: ['已通过'],
-    operate: ['查看证书']
-  },
-  {
-    key: '3',
-    grade: '2023级',
-    major: '软件工程',
-    class: '1',
-    name: '李四',
-    cname: '蓝桥杯',
-    time: '2024/1/22',
-    materials: '点击查看',
-    state: ['未通过'],
-    operate: ['查看驳回理由']
-  },
-  {
-    key: '4',
-    grade: '2023级',
-    major: '软件工程',
-    class: '1',
-    name: '李四',
-    cname: '蓝桥杯',
-    time: '2024/1/22',
-    materials: '点击查看',
-    state: ['未审批'],
-    operate: ['查看驳回理由']
+
+// let data = ref([]);
+// const filteredData = ref<Array<DataType>>(data);
+let filteredData = ref([]);
+/**
+ * @description 请求竞赛之星数据。
+ */
+const getData = async () => {
+  const loginResult = await LXRgetCompetition();
+  console.log(loginResult);
+  if (loginResult.code) {
+    filteredData.value = loginResult.data;
+    spinning.value = false;
+  } else {
+    message.warning(`${loginResult.msg}`);
   }
-];
-const filteredData = ref<Array<DataType>>(data);
+};
+getData();
+
+/**
+ * @description 佐证材料相关。
+ */
+const openUrl = ref<boolean>(false);
+const showUrl = () => {
+  openUrl.value = true;
+};
+
+/**
+ * @description 查看证书相关。
+ */
+const openCertificate = ref<boolean>(false);
+const showCertificate = () => {
+  openCertificate.value = true;
+};
+
 const onSearch = () => {
-  filteredData.value = data.filter((item) => {
-    const searchString = inputValue.value.toLocaleLowerCase();
-    return item.major.includes(searchString) || item.name.includes(searchString) || item.cname.includes(searchString) || item.state.join(', ').includes(searchString);
-  });
+  // filteredData.value = data.filter((item) => {
+  //   const searchString = inputValue.value.toLocaleLowerCase();
+  //   return item.major.includes(searchString) || item.name.includes(searchString) || item.cname.includes(searchString) || item.state.join(', ').includes(searchString);
+  // });
 };
 const handleMenuClick: MenuProps['onClick'] = (e) => {
   console.log('click', e);

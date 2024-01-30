@@ -69,61 +69,73 @@ const columns = [
   {
     title: '年级',
     dataIndex: 'grade',
+    align: 'center',
     key: 'grade'
   },
   {
     title: '专业',
     dataIndex: 'major',
+    align: 'center',
     key: 'major'
   },
   {
     title: '班级',
     dataIndex: 'class',
+    align: 'center',
     key: 'class'
   },
   {
     title: '姓名',
     dataIndex: 'name',
+    align: 'center',
     key: 'name'
   },
   {
     title: '项目类别',
     dataIndex: 'scitype',
+    align: 'center',
     key: 'scitype'
   },
   {
     title: '项目名称/软著名称/期刊名称',
     dataIndex: 'sciname',
+    align: 'center',
     key: 'sciname'
   },
   {
     title: '项目级别/颁发单位/论文名称',
     dataIndex: 'scigrade',
+    align: 'center',
     key: 'scigrade'
   },
   {
     title: '立项时间/获批时间/发表时间',
     dataIndex: 'signuptime',
+    align: 'center',
     key: 'signuptime'
   },
   {
     title: '排名/总人数',
     dataIndex: 'ranking',
+    align: 'center',
     key: 'ranking'
   },
   {
     title: '佐证材料',
     dataIndex: 'materials',
+    align: 'center',
     key: 'materials'
   },
   {
     title: '状态',
     dataIndex: 'state',
+    align: 'center',
     key: 'state'
   },
   {
     title: '操作',
     dataIndex: 'operate',
+    align: 'center',
     key: 'operate'
   }
 ];

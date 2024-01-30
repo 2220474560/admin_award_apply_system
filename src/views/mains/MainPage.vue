@@ -16,7 +16,7 @@
       </a-layout>
     </a-layout-content>
     <a-layout-footer class="footer">
-      <a-divider plain><span class="footer-font">Copyright © 2024 成都东软学院. 京ICP备10214630号</span></a-divider>
+      <a-divider plain class="footer-divider"><span class="footer-font">Copyright © 2024 成都东软学院. 京ICP备10214630号</span></a-divider>
     </a-layout-footer>
   </a-layout>
 </template>
@@ -69,7 +69,11 @@ import HeaderMenu from '@/components/mains/main-page/HeaderMenu.vue';
   padding: 0 3%;
 }
 
+.footer-divider {
+  border-color: #fff;
+}
+
 .footer-font {
-  font-weight: 100;
+  color: #fff;
 }
 </style>
