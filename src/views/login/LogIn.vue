@@ -56,14 +56,6 @@
       </a-layout>
     </div>
   </a-config-provider>
-
-  <div>
-    <a-button type="primary" ghost @click="logIn">登录</a-button>
-    <a-button type="primary" ghost @click="learningProgress">学习之星与进步之星</a-button>
-    <a-button type="primary" ghost @click="matchStar">竞赛之星</a-button>
-    <a-button type="primary" ghost @click="researchStar">科研之星</a-button>
-    <a-button type="primary" ghost @click="doubleStar">双创之星</a-button>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -136,29 +128,24 @@ async function logIn() {
   console.log(loginResult);
   if (loginResult.code == 200) {
     // console.log(loginResult.data)
+    // console.log(loginResult.data.judge)
     localStorage.setItem('LOGIN_TOKEN', loginResult.data.token);
-    router.push('/MatchStar');
+    // 根据judge选择页面登录
+    if(loginResult.data.judge=="学习之星与进步之星"){
+      router.push('/LearningProgress');
+    }else if(loginResult.data.judge=="竞赛之星"){
+      router.push('/ResearchStar');
+    }else if(loginResult.data.judge=="科研之星"){
+      router.push('/ResearchStar');
+    }else if(loginResult.data.judge=="双创之星"){
+      router.push('/DoubleStar');
+    };
     message.success(`${loginResult.msg}`);
   } else {
     message.warning(`${loginResult.msg}`);
   }
 }
 
-function doubleStar() {
-  router.push('/DoubleStar');
-}
-
-function learningProgress() {
-  router.push('/LearningProgress');
-}
-
-function matchStar() {
-  router.push('/MatchStar');
-}
-
-function researchStar() {
-  router.push('/ResearchStar');
-}
 </script>
 
 <style scoped>
